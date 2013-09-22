@@ -91,12 +91,14 @@
           scope.$watch(function() {
             return scope.$eval(tipped).show;
           }, function(newVal) {
-            if(newVal) {
-              tt.show();
-            } else if (tt) {
-              tt.hide();
+            if (tt) {
+              if (newVal) {
+                tt.show();
+              } else {
+                tt.hide();
+              }
             }
-          })
+          });
         }
       };
     }
