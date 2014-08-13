@@ -1,4 +1,6 @@
-/*global angular*/
+/*global angular, Tipped*/
+/*jshint indent:2*/
+
 (function () {
   'use strict';
 
@@ -10,6 +12,20 @@
     hideOn: 'mouseleave',
     hideDelay: 500,
     target: 'self'
+  };
+
+  var title_defaults = {
+    showDelay: 600,
+    hideDelay: 0,
+    hideOthers: false,
+    showOn: 'mouseenter',
+    hideOn: [
+      { element: 'tooltip', event: 'mouseleave' },
+      { element: 'self', event: 'click' },
+      { element: 'self', event: 'mouseleave' }
+    ],
+    target: 'self',
+    skin: 'light'
   };
 
   tipped.constant('tippedOptions', {});
@@ -27,12 +43,18 @@
    *
    * (the template URL is an AngularJS expression)
    *
+   * Including both title and data-template-url in a single element creates:
+   *
+   *   - the title as a hover tooltip bound to the mouseenter event
+   *
+   *   - the template URL using the data-tipped options
+   *
    * To override any defaults, pass an options object to the tipped directive:
    *
    *  <div data-tipped="{skin: 'grey'}" title="Derp"></div>
    *
    */
-  tipped.directive('tipped',
+  tipped.directive('tipped', ['$window', '$http', '$interpolate', '$compile', '$templateCache', '$timeout', 'tippedOptions',
     function ($window, $http, $interpolate, $compile, $templateCache, $timeout,
       tippedOptions) {
       return {
@@ -41,8 +63,10 @@
           var tipped = attrs.tipped || '{}', skin,
             tippedDefaults = angular.copy(defaults),
             moduleDefaults = angular.copy(tippedOptions),
-            ttDefaults = scope.$eval(tipped), tt,
-            options;
+            titleDefaults = angular.copy(title_defaults),
+            ttDefaults = scope.$eval(tipped), tt, ht,
+            hoverElement,
+            options = {};
 
           function make() {
             return $http.get(scope.$eval(attrs.templateUrl),
@@ -62,32 +86,24 @@
                     compiledTemplate =
                     $compile('<div>' + res.data + '</div>')(scope);
                   });
-                  return $window.Tipped.create(element[0],
-                    compiledTemplate.html(), options);
+                  tt = $window.Tipped.create(element[0], compiledTemplate.html(), options);
+                  return tt;
                 }, 0, false);
               });
           }
 
-          options = angular.extend(tippedDefaults, moduleDefaults);
+          if (attrs.templateUrl) {
+            options = angular.extend(options, tippedDefaults);
+            options = angular.extend(options, moduleDefaults);
 
-          // explicitly get options from skin since we have to do stuff manually.
-          if (options.skin &&
-              (skin = $window.Tipped.Skins[ttDefaults.skin || options.skin])) {
-            options = angular.extend(options, skin);
-          }
+            // explicitly get options from skin since we have to do stuff manually.
+            if (options.skin &&
+                (skin = $window.Tipped.Skins[ttDefaults.skin || options.skin])) {
+              options = angular.extend(options, skin);
+            }
 
-          options = angular.extend(options, ttDefaults);
+            options = angular.extend(options, ttDefaults);
 
-          if (angular.isDefined(attrs.title)) {
-            attrs.$observe('title', function (value) {
-              if (!tt && value) {
-                tt =
-                $window.Tipped.create(element[0], $interpolate(value)(scope),
-                  options);
-              }
-            });
-          }
-          else if (attrs.templateUrl) {
             scope.$on('Tipped.refresh', function () {
               $window.Tipped.refresh(element[0]);
             });
@@ -98,7 +114,61 @@
                   tt.show();
                 });
               });
+              scope.$on('$destroy', function () {
+                element.unbind(options.showOn);
+              });
             }
+          }
+          else {
+            // title gets the overridden defaults if no template-url
+            titleDefaults = angular.extend(titleDefaults, ttDefaults);
+          }
+
+          if (angular.isDefined(attrs.title)) {
+            if (attrs.templateUrl) {
+              // we may be trying to add more than one tip to the element
+              // wrap the current element with a span that this tooltip will bind to
+              hoverElement = element.wrap("<span class='title_tip'></span>").parent();
+            } else {
+              hoverElement = element;
+            }
+
+            attrs.$observe('title', function (value) {
+              if (value) {
+                if (attrs.templateUrl || titleDefaults.createNow) {
+                  // certain tooltips need to be created right away to prevent display issues
+                  ht = $window.Tipped.create(hoverElement[0], $interpolate(value)(scope), titleDefaults);
+
+                  // since we're not adding the tooltip to the original element
+                  // we need to remove the title from it
+                  element.removeAttr("title");
+                } else {
+                  hoverElement.bind('mouseenter', function () {
+                    if (!angular.isObject(ht)) {
+                      ht = $window.Tipped.create(hoverElement[0], $interpolate(value)(scope), titleDefaults);
+
+                      $timeout(function () {
+                        ht.show();
+                      }, titleDefaults.showDelay);
+                    }
+                  }).bind('mouseleave', function () {
+                      // prevent the ht tooltip from getting stuck when the mouse
+                      // leaves before it is created and displayed
+                      // needs to happen after the show event, hence the timeout
+                      $timeout(function () {
+                        if (angular.isObject(ht) && Tipped.visible(hoverElement)) {
+                          ht.hide();
+                        }
+                      }, titleDefaults.showDelay);
+                    });
+                }
+
+                scope.$on('$destroy', function () {
+                  hoverElement.unbind('mouseenter');
+                  hoverElement.unbind('mouseleave');
+                });
+              }
+            });
           }
 
           // watch the 'show' option.
@@ -113,12 +183,11 @@
               }
             } else if (newVal) {
               make().then(function (tt) {
-                tt.show();
-              });
+                  tt.show();
+                });
             }
           });
         }
       };
-    }
-  );
+    }]);
 })();
