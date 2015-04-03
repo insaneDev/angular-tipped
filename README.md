@@ -19,10 +19,10 @@ Dependencies
 Usage
 =====
 
-Require the `decipher.tipped` module:
+Require the `fv.tipped` module:
 
 ```javascript
-angular.module('myApp', ['decipher.tipped']);
+angular.module('myApp', ['fv.tipped']);
 ```
 
 Simple Tooltips
@@ -36,7 +36,7 @@ Use the directive:
 This will create a Tipped tooltip that will show on hover after 1s and hide when you move your mouse out after 500ms.  The value is interpolated.  These defaults can be changed by injecting the `tippedOptions` constant:
 
 ```javascript
-angular.module('myApp', ['decipher.tipped']).config(function(tippedOptions) {
+angular.module('myApp', ['fv.tipped']).config(function(tippedOptions) {
     tippedOptions.showDelay = 500; // reduce the delay to show the tooltip to 500ms.
 });
 ```

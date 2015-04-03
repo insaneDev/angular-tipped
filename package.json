@@ -1,0 +1,33 @@
+{
+  "name": "angular-tipped",
+  "version": "1.0.0-1",
+  "description": "AngularJS directive for Tipped tooltip library",
+  "main": "tipped.js",
+  "scripts": {
+    "test": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/decipherinc/angular-tipped.git"
+  },
+  "keywords": [
+    "tipped",
+    "tooltip",
+    "angular",
+    "angularjs"
+  ],
+  "authors": [
+    "Christopher Hiller <chiller@decipherinc.com>",
+    "Anthony Thompson <anthompson@decipherinc.com>",
+    "DJ Agellon <dj@decipherinc.com>",
+    "Nick Trevino <n.trevino@decipherinc.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/decipherinc/angular-tipped/issues"
+  },
+  "homepage": "https://github.com/decipherinc/angular-tipped",
+  "devDependencies": {
+    "eslint": "^0.18.0"
+  }
+}
