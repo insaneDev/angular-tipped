@@ -5,10 +5,7 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
-    "test",
-    "tests",
-    ".idea"
+    "bower_components"
   ],
   "keywords": [
     "tipped",
@@ -25,5 +22,9 @@
   ],
   "license": "MIT",
   "description": "AngularJS directive for Tipped tooltip library",
-  "homepage": "https://github.com/decipherinc/angular-tipped"
+  "homepage": "https://github.com/decipherinc/angular-tipped",
+  "dependencies": {
+    "jquery": ">= 1.4.4 < 2.0.0",
+    "angular": ">= 1.2.0 < 2.0.0"
+  }
 }
