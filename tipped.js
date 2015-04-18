@@ -1,4 +1,4 @@
-/*! angular-tipped - v1.0.0-1
+/*! angular-tipped - v1.0.0-2
  * https://github.com/decipherinc/angular-tipped
  * Copyright (c) 2015 FocusVision Worldwide. Licensed MIT
  */
