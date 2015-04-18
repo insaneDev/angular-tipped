@@ -4,12 +4,14 @@ options:
     - bower.json
   updateConfigs:
     - pkg
+    - bower
   commit: true
   commitMessage: Release v%VERSION%
   commitFiles:
     - package.json
     - bower.json
-    - ./dist/*
+    - <%= bower.main %>
+    - <%= min(bower.main) %>
   createTag: true
   tagName: v%VERSION%
   tagMessage: Version %VERSION%
