@@ -1,4 +1,4 @@
-# angular-tipped
+# angular-tipped [![npm version](https://badge.fury.io/js/angular-tipped.svg)](http://badge.fury.io/js/angular-tipped) [![Bower version](https://badge.fury.io/bo/angular-tipped.svg)](http://badge.fury.io/bo/angular-tipped)
 
 An AngularJS directive for the [Tipped](http://projects.nickstakenburg.com/tipped) tooltip library.
 
@@ -74,8 +74,14 @@ TODO
 
 ## Installation
 
+```sh
+$ bower install angular-tipped
 ```
-bower install angular-tipped
+
+Alternatively, if using in a server-side context (such as with [Browserify](http://browserify.org)):
+
+```sh
+$ npm install angular-tipped
 ```
 
 ## Dependencies
@@ -84,7 +90,7 @@ bower install angular-tipped
 - [Tipped](http://projects.nickstakenburg.com/tipped) v3.1.8 < v4.0.0
 - [jQuery](http://jquery.com) v1.4.4 < v2.0 (Tipped requirement)
 
-**Note**: Tipped is *not* open-source software, and as such is not included in **angular-tipped**'s Bower deps; it must be installed manually.
+**Note**: Tipped is *not* open-source software, and as such is not included in **angular-tipped**'s depepdencies; it must be installed manually.
 
 This package may or may not work with newer versions of Tipped or jQuery.  If you have success or failure with newer versions than those listed above, please [let us know](https://github.com/decipherinc/angular-tipped/issues).
  
