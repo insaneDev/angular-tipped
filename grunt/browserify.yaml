@@ -1,0 +1,29 @@
+options:
+  banner: |
+    /*! <%= pkg.name %> - v<%= pkg.version %>
+     * <%= pkg.homepage %>
+     * Copyright (c) <%= grunt.template.today('yyyy') %> <%= pkg.author %>. Licensed <%= pkg.license %>
+     */
+
+main:
+  files:
+    "<%= bower.main %>": <%= pkg.main %>
+  options:
+    transform:
+      -
+        - exposify
+        -
+          expose:
+            angular: angular
+
+min:
+  files:
+    "<%= min(bower.main) %>": <%= pkg.main %>
+  options:
+    transform:
+      -
+        - exposify
+        -
+          expose:
+            angular: angular
+      - uglifyify

@@ -4,8 +4,8 @@
   "main": "tipped.js",
   "ignore": [
     "**/.*",
-    "node_modules",
-    "bower_components"
+    "Gruntfile.js",
+    "lib"
   ],
   "keywords": [
     "tipped",

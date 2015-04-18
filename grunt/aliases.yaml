@@ -1,0 +1,6 @@
+test:
+  - eslint
+build:
+  - browserify
+default:
+  - build

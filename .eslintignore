@@ -3,3 +3,6 @@ bower_components/
 support/
 vendor/
 node_modules/
+tipped.js
+tipped.min.js
+
