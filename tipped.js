@@ -1,4 +1,4 @@
-/*! angular-tipped - v1.0.0-4
+/*! angular-tipped - v1.0.0-5
  * https://github.com/decipherinc/angular-tipped
  * Copyright (c) 2015 FocusVision Worldwide. Licensed MIT
  */
@@ -121,38 +121,13 @@ tipped.directive('tipped',
             if (options.showOn) {
               element.bind(options.showOn, function () {
                 make().then(function (tt) {
-                  if (options.showDelay) {
-                    // show after the specified delay
-                    $timeout(function() {
-                      tt.show();
-                    }, options.showDelay);
-                  } else {
-                    // show immediately
-                    tt.show();
-                  }
+                  tt.show();
                 });
               });
               scope.$on('$destroy', function () {
                 element.unbind(options.showOn);
               });
             }
-          } else if (options.hideOn) {
-              element.bind(options.hideOn, function () {
-                make().then(function (tt) {
-                  if (options.hideDelay) {
-                    // hide after the specified delay
-                    $timeout(function() {
-                      tt.hide();
-                    }, options.hideDelay);
-                  } else {
-                    // hide immediately
-                    tt.hide();
-                  }
-                });
-              });
-              scope.$on('$destroy', function () {
-                element.unbind(options.hideOn);
-              });
           } else {
             // title gets the overridden defaults if no template-url
             titleDefaults = angular.extend(titleDefaults, ttDefaults);
