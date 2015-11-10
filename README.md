@@ -96,9 +96,9 @@ This package may or may not work with newer versions of Tipped or jQuery.  If yo
  
 ## Authors
 
-- [Christopher Hiller](http://boneskull.com)
+- [Christopher Hiller](https://github.com/boneskull)
 - [Anthony Thompson](https://github.com/vercasson)
-- DJ Agellon
+- [DJ Agellon](https://github.com/dagellon)
 - [Nick Trevino](https://github.com/hyperlisk)
 
 ## License
