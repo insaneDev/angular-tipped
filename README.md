@@ -100,6 +100,7 @@ This package may or may not work with newer versions of Tipped or jQuery.  If yo
 - [Anthony Thompson](https://github.com/vercasson)
 - [DJ Agellon](https://github.com/dagellon)
 - [Nick Trevino](https://github.com/hyperlisk)
+- [Cameron Briar](https://github.com/cameronbriar)
 
 ## License
 
