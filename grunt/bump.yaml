@@ -1,15 +1,12 @@
 options:
   files:
     - package.json
-    - bower.json
   updateConfigs:
     - pkg
-    - bower
   commit: true
   commitMessage: Release v%VERSION%
   commitFiles:
     - package.json
-    - bower.json
     - <%= bower.main %>
     - <%= min(bower.main) %>
   createTag: true
