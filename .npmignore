@@ -1,12 +1,6 @@
 .*
-example/
-eg/
-demo/
-test/
-spec/
-docs/
-dist/
 Gruntfile.js
-tasks/
+grunt/
 tipped.js
 tipped.min.js
+bower.json
