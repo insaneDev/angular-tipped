@@ -19,7 +19,8 @@
     "Christopher Hiller <chiller@decipherinc.com>",
     "Anthony Thompson <anthompson@decipherinc.com>",
     "DJ Agellon <dj@decipherinc.com>",
-    "Nick Trevino <n.trevino@decipherinc.com>"
+    "Nick Trevino <n.trevino@decipherinc.com>",
+    "Cameron Briar <cameron@decipherinc.com>"
   ],
   "license": "MIT",
   "description": "AngularJS directive for Tipped tooltip library",
