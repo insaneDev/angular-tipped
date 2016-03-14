@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Angular-tipped by insaneDev</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Angular-tipped</h1>
+        <p>An AngularJS directive for the Tipped tooltip library.</p>
+
+        <p class="view"><a href="https://github.com/insaneDev/angular-tipped">View the Project on GitHub <small>insaneDev/angular-tipped</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/insaneDev/angular-tipped/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/insaneDev/angular-tipped/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/insaneDev/angular-tipped">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="angular-tipped--" class="anchor" href="#angular-tipped--" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>angular-tipped <a href="http://badge.fury.io/js/angular-tipped"><img src="https://badge.fury.io/js/angular-tipped.svg" alt="npm version"></a> <a href="http://badge.fury.io/bo/angular-tipped"><img src="https://badge.fury.io/bo/angular-tipped.svg" alt="Bower version"></a>
+</h1>
+
+<p>An AngularJS directive for the <a href="http://projects.nickstakenburg.com/tipped">Tipped</a> tooltip library.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Require the <code>fv.tipped</code> module:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>myApp<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>fv.tipped<span class="pl-pds">'</span></span>]);</pre></div>
+
+<h3>
+<a id="simple-tooltips" class="anchor" href="#simple-tooltips" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Simple Tooltips</h3>
+
+<p>Use the directive:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">tipped</span> <span class="pl-e">title</span>=<span class="pl-s"><span class="pl-pds">"</span>foo {{bar}}<span class="pl-pds">"</span></span>&gt;{{bar}}&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<p>This will create a Tipped tooltip that will show on hover after 1s and hide when you move your mouse out after 500ms.  The value is interpolated.  These defaults can be changed by injecting the <code>tippedOptions</code> constant:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>myApp<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>fv.tipped<span class="pl-pds">'</span></span>]).<span class="pl-en">config</span>(<span class="pl-k">function</span>(<span class="pl-smi">tippedOptions</span>) {
+    <span class="pl-smi">tippedOptions</span>.<span class="pl-smi">showDelay</span> <span class="pl-k">=</span> <span class="pl-c1">500</span>; <span class="pl-c">// reduce the delay to show the tooltip to 500ms.</span>
+});</pre></div>
+
+<p>Pass any options to Tipped (see <a href="http://projects.nickstakenburg.com/tipped/documentation">the docs</a>) via an object in the <code>tipped</code> directive itself:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">tipped</span>=<span class="pl-s"><span class="pl-pds">"</span>{showDelay: 500}<span class="pl-pds">"</span></span> <span class="pl-e">title</span>=<span class="pl-s"><span class="pl-pds">"</span>I'm a tooltip<span class="pl-pds">"</span></span>&gt;hover me&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<h3>
+<a id="unique-features" class="anchor" href="#unique-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unique Features</h3>
+
+<h4>
+<a id="template-urls" class="anchor" href="#template-urls" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Template URLs</h4>
+
+<p>The above is of course for a simple tooltip, but if you wish to do something more involved, you can pass a template URL to the directive:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">tipped</span> <span class="pl-e">template-url</span>=<span class="pl-s"><span class="pl-pds">"</span>'my-template.html'<span class="pl-pds">"</span></span>&gt;hooey&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<p>The value of <code>templateUrl</code> is evaluated against the current scope, so you may pass it a string in single-quotes or an expression.  There is no <code>$watch</code> on the expression as of this writing.  The directive will look in the <code>$templateCache</code> here for something called <code>my-template.html</code>, and will/should avoid making the <code>GET</code> request to go grab it, if found.  The template is compiled and linked against the current scope, so you can do basically anything you want within one of these tooltips.</p>
+
+<h4>
+<a id="showhide-via-scope" class="anchor" href="#showhide-via-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Show/Hide via Scope</h4>
+
+<p>angular-tipped supports an option called <code>show</code>, which is <em>not</em> a Tipped option, and is different than <code>showOn</code> .  Pass a model to <code>show</code> in the options and the tooltip will hide/show as it changes.  For example:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">tipped</span>=<span class="pl-s"><span class="pl-pds">"</span>{show: foo}<span class="pl-pds">"</span></span> <span class="pl-e">title</span>=<span class="pl-s"><span class="pl-pds">"</span>jumpin<span class="pl-pds">"</span></span>&gt;punkins&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">$scope</span>.<span class="pl-smi">foo</span> <span class="pl-k">=</span> <span class="pl-c1">false</span>;
+<span class="pl-c">//... time passes ...</span>
+<span class="pl-smi">$scope</span>.<span class="pl-smi">foo</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>; <span class="pl-c">// tooltip shows</span></pre></div>
+
+<h4>
+<a id="the-tipped-service" class="anchor" href="#the-tipped-service" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The <code>Tipped</code> Service</h4>
+
+<p>The <code>Tipped</code> service allows you to create a <em>Tipped configuration object</em> containing all user defaults (and "default" defaults) to be used in the view.  </p>
+
+<p>TODO</p>
+
+<h4>
+<a id="the-tippedmodal-directive" class="anchor" href="#the-tippedmodal-directive" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The <code>tippedModal</code> Directive</h4>
+
+<p>The <code>tippedModal</code> directive creates a dialog-box-like tooltip (functioning much like the ui-bootstrap <a href="https://angular-ui.github.io/bootstrap/#modal">$modal service</a>, which is closable via Scope functions <code>$dismiss()</code> or <code>$close()</code>.  Opening a tooltip will return a resolved or rejected promise upon closure or dismissal, respectively.</p>
+
+<p>TODO</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<div class="highlight highlight-source-shell"><pre>$ bower install angular-tipped</pre></div>
+
+<p>Alternatively, if using in a server-side context (such as with <a href="http://browserify.org">Browserify</a>):</p>
+
+<div class="highlight highlight-source-shell"><pre>$ npm install angular-tipped</pre></div>
+
+<h2>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<ul>
+<li>
+<a href="http://angularjs.org">AngularJS</a> v1.2.0 &lt; v2.0.0</li>
+<li>
+<a href="http://projects.nickstakenburg.com/tipped">Tipped</a> v3.1.8 &lt; v4.0.0</li>
+<li>
+<a href="http://jquery.com">jQuery</a> v1.4.4 &lt; v2.0 (Tipped requirement)</li>
+</ul>
+
+<p><strong>Note</strong>: Tipped is <em>not</em> open-source software, and as such is not included in <strong>angular-tipped</strong>'s depepdencies; it must be installed manually.</p>
+
+<p>This package may or may not work with newer versions of Tipped or jQuery.  If you have success or failure with newer versions than those listed above, please <a href="https://github.com/decipherinc/angular-tipped/issues">let us know</a>.</p>
+
+<h2>
+<a id="authors" class="anchor" href="#authors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors</h2>
+
+<ul>
+<li><a href="https://github.com/boneskull">Christopher Hiller</a></li>
+<li><a href="https://github.com/vercasson">Anthony Thompson</a></li>
+<li><a href="https://github.com/dagellon">DJ Agellon</a></li>
+<li><a href="https://github.com/hyperlisk">Nick Trevino</a></li>
+<li><a href="https://github.com/cameronbriar">Cameron Briar</a></li>
+</ul>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>Copyright 2013-2015 <a href="http://www.focusvision.com">FocusVision Worldwide</a>.  Licensed MIT.</p>
+
+<p><a href="http://www.tippedjs.com">Tipped</a> is Copyright 2010-2015 Nick Stakenburg. </p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/insaneDev">insaneDev</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
